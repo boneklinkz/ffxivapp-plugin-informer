@@ -6,8 +6,10 @@
              xmlns:Plugin="clr-namespace:FFXIVAPP.Plugin.Informer"
              xmlns:Properties="clr-namespace:FFXIVAPP.Plugin.Informer.Properties"
              xmlns:ViewModels="clr-namespace:FFXIVAPP.Plugin.Informer.ViewModels"
+             xmlns:componentModel="clr-namespace:System.ComponentModel;assembly=WindowsBase"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:utilities="clr-namespace:FFXIVAPP.Common.Utilities;assembly=FFXIVAPP.Common"
              d:DesignHeight="300"
              d:DesignWidth="300"
              mc:Ignorable="d">
@@ -32,141 +34,425 @@
 
     <Grid x:Name="LayoutRoot"
           DataContext="{StaticResource MainViewModel}">
-        <ScrollViewer>
-            <StackPanel>
-                <GroupBox Header="Current User">
-                    <Grid>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="*" />
-                        </Grid.RowDefinitions>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="100" />
-                            <ColumnDefinition Width="*" />
-                        </Grid.ColumnDefinitions>
-                        <StackPanel Grid.Row="0"
-                                    Grid.Column="0">
-                            <Label Style="{StaticResource LabelStyle}">
-                                Name:
-                            </Label>
-                            <Label Style="{StaticResource LabelStyle}">
-                                Level:
-                            </Label>
-                            <Label Style="{StaticResource LabelStyle}">
-                                HP:
-                            </Label>
-                            <Label Style="{StaticResource LabelStyle}">
-                                MP:
-                            </Label>
-                            <Label Style="{StaticResource LabelStyle}">
-                                TP:
-                            </Label>
-                            <Label Style="{StaticResource LabelStyle}">
-                                GP:
-                            </Label>
-                            <Label Style="{StaticResource LabelStyle}">
-                                CP:
-                            </Label>
-                            <Label Style="{StaticResource LabelStyle}">
-                                Status Count:
-                            </Label>
-                        </StackPanel>
-                        <StackPanel Grid.Row="0"
-                                    Grid.Column="1">
-                            <Label Content="{Binding CurrentUser.Name,
-                                                     Source={StaticResource XIVInfoViewModel}}"
-                                   Style="{StaticResource LabelStyle}" />
-                            <Label Content="{Binding CurrentUser.Level,
-                                                     Source={StaticResource XIVInfoViewModel}}"
-                                   Style="{StaticResource LabelStyle}" />
-                            <Label Content="{Binding CurrentUser.HPString,
-                                                     Source={StaticResource XIVInfoViewModel},
-                                                     StringFormat=\{0:P2\}}"
-                                   Style="{StaticResource LabelStyle}" />
-                            <Label Content="{Binding CurrentUser.MPString,
-                                                     Source={StaticResource XIVInfoViewModel}}"
-                                   Style="{StaticResource LabelStyle}" />
-                            <Label Content="{Binding CurrentUser.TPString,
-                                                     Source={StaticResource XIVInfoViewModel}}"
-                                   Style="{StaticResource LabelStyle}" />
-                            <Label Content="{Binding CurrentUser.GPString,
-                                                     Source={StaticResource XIVInfoViewModel}}"
-                                   Style="{StaticResource LabelStyle}" />
-                            <Label Content="{Binding CurrentUser.CPString,
-                                                     Source={StaticResource XIVInfoViewModel}}"
-                                   Style="{StaticResource LabelStyle}" />
-                            <Label Content="{Binding CurrentUser.StatusEntries.Count,
-                                                     Source={StaticResource XIVInfoViewModel}}"
-                                   Style="{StaticResource LabelStyle}" />
-                        </StackPanel>
-                    </Grid>
-                </GroupBox>
-                <GroupBox Header="Current Target">
-                    <Grid>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="*" />
-                        </Grid.RowDefinitions>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="100" />
-                            <ColumnDefinition Width="*" />
-                        </Grid.ColumnDefinitions>
-                        <StackPanel Grid.Row="0"
-                                    Grid.Column="0">
-                            <Label Style="{StaticResource LabelStyle}">
-                                Name:
-                            </Label>
-                            <Label Style="{StaticResource LabelStyle}">
-                                Level:
-                            </Label>
-                            <Label Style="{StaticResource LabelStyle}">
-                                HP:
-                            </Label>
-                            <Label Style="{StaticResource LabelStyle}">
-                                MP:
-                            </Label>
-                            <Label Style="{StaticResource LabelStyle}">
-                                TP:
-                            </Label>
-                            <Label Style="{StaticResource LabelStyle}">
-                                GP:
-                            </Label>
-                            <Label Style="{StaticResource LabelStyle}">
-                                CP:
-                            </Label>
-                            <Label Style="{StaticResource LabelStyle}">
-                                Status Count:
-                            </Label>
-                        </StackPanel>
-                        <StackPanel Grid.Row="0"
-                                    Grid.Column="1">
-                            <Label Content="{Binding CurrentTarget.Name,
-                                                     Source={StaticResource XIVInfoViewModel}}"
-                                   Style="{StaticResource LabelStyle}" />
-                            <Label Content="{Binding CurrentTarget.Level,
-                                                     Source={StaticResource XIVInfoViewModel}}"
-                                   Style="{StaticResource LabelStyle}" />
-                            <Label Content="{Binding CurrentTarget.HPString,
-                                                     Source={StaticResource XIVInfoViewModel},
-                                                     StringFormat=\{0:P2\}}"
-                                   Style="{StaticResource LabelStyle}" />
-                            <Label Content="{Binding CurrentTarget.MPString,
-                                                     Source={StaticResource XIVInfoViewModel}}"
-                                   Style="{StaticResource LabelStyle}" />
-                            <Label Content="{Binding CurrentTarget.TPString,
-                                                     Source={StaticResource XIVInfoViewModel}}"
-                                   Style="{StaticResource LabelStyle}" />
-                            <Label Content="{Binding CurrentTarget.GPString,
-                                                     Source={StaticResource XIVInfoViewModel}}"
-                                   Style="{StaticResource LabelStyle}" />
-                            <Label Content="{Binding CurrentTarget.CPString,
-                                                     Source={StaticResource XIVInfoViewModel}}"
-                                   Style="{StaticResource LabelStyle}" />
-                            <Label Content="{Binding CurrentTarget.StatusEntries.Count,
-                                                     Source={StaticResource XIVInfoViewModel}}"
-                                   Style="{StaticResource LabelStyle}" />
-                        </StackPanel>
-                    </Grid>
-                </GroupBox>
-            </StackPanel>
-        </ScrollViewer>
+        <TabControl>
+            <TabItem Header="{Binding Locale[informer_PlayerTabHeader],
+                                      Source={StaticResource PluginViewModel}}">
+                <ScrollViewer>
+                    <StackPanel>
+                        <GroupBox Header="{Binding Locale[informer_CurrentPlayerHeader],
+                                                   Source={StaticResource PluginViewModel}}">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="*" />
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="100" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+                                <StackPanel Grid.Row="0"
+                                            Grid.Column="0">
+                                    <Label Content="{Binding Locale[informer_NameLabel],
+                                                             Source={StaticResource PluginViewModel}}"
+                                           Style="{StaticResource LabelStyle}" />
+                                    <Label Content="{Binding Locale[informer_LevelLabel],
+                                                             Source={StaticResource PluginViewModel}}"
+                                           Style="{StaticResource LabelStyle}" />
+                                    <Label Content="{Binding Locale[informer_HPLabel],
+                                                             Source={StaticResource PluginViewModel}}"
+                                           Style="{StaticResource LabelStyle}" />
+                                    <Label Content="{Binding Locale[informer_MPLabel],
+                                                             Source={StaticResource PluginViewModel}}"
+                                           Style="{StaticResource LabelStyle}" />
+                                    <Label Content="{Binding Locale[informer_TPLabel],
+                                                             Source={StaticResource PluginViewModel}}"
+                                           Style="{StaticResource LabelStyle}" />
+                                    <Label Content="{Binding Locale[informer_GPLabel],
+                                                             Source={StaticResource PluginViewModel}}"
+                                           Style="{StaticResource LabelStyle}" />
+                                    <Label Content="{Binding Locale[informer_CPLabel],
+                                                             Source={StaticResource PluginViewModel}}"
+                                           Style="{StaticResource LabelStyle}" />
+                                    <Label Content="{Binding Locale[informer_StatusCountLabel],
+                                                             Source={StaticResource PluginViewModel}}"
+                                           Style="{StaticResource LabelStyle}" />
+                                </StackPanel>
+                                <StackPanel Grid.Row="0"
+                                            Grid.Column="1">
+                                    <Label Content="{Binding CurrentUser.Name,
+                                                             Source={StaticResource XIVInfoViewModel}}"
+                                           Style="{StaticResource LabelStyle}" />
+                                    <Label Content="{Binding CurrentUser.Level,
+                                                             Source={StaticResource XIVInfoViewModel}}"
+                                           Style="{StaticResource LabelStyle}" />
+                                    <Label Content="{Binding CurrentUser.HPString,
+                                                             Source={StaticResource XIVInfoViewModel},
+                                                             StringFormat=\{0:P2\}}"
+                                           Style="{StaticResource LabelStyle}" />
+                                    <Label Content="{Binding CurrentUser.MPString,
+                                                             Source={StaticResource XIVInfoViewModel}}"
+                                           Style="{StaticResource LabelStyle}" />
+                                    <Label Content="{Binding CurrentUser.TPString,
+                                                             Source={StaticResource XIVInfoViewModel}}"
+                                           Style="{StaticResource LabelStyle}" />
+                                    <Label Content="{Binding CurrentUser.GPString,
+                                                             Source={StaticResource XIVInfoViewModel}}"
+                                           Style="{StaticResource LabelStyle}" />
+                                    <Label Content="{Binding CurrentUser.CPString,
+                                                             Source={StaticResource XIVInfoViewModel}}"
+                                           Style="{StaticResource LabelStyle}" />
+                                    <Label Content="{Binding CurrentUser.StatusEntries.Count,
+                                                             Source={StaticResource XIVInfoViewModel}}"
+                                           Style="{StaticResource LabelStyle}" />
+                                </StackPanel>
+                            </Grid>
+                        </GroupBox>
+                    </StackPanel>
+                </ScrollViewer>
+            </TabItem>
+            <TabItem Header="{Binding Locale[informer_AgroTabHeader],
+                                      Source={StaticResource PluginViewModel}}">
+                <TabItem.Resources>
+                    <CollectionViewSource x:Key="SortedPlayerEnmityItems"
+                                          Source="{Binding AgroEntries,
+                                                           Source={StaticResource XIVInfoViewModel}}">
+                        <CollectionViewSource.SortDescriptions>
+                            <componentModel:SortDescription Direction="Descending"
+                                                            PropertyName="Enmity" />
+                        </CollectionViewSource.SortDescriptions>
+                    </CollectionViewSource>
+                </TabItem.Resources>
+                <DataGrid x:Name="PlayerEnmityDG"
+                          AutoGenerateColumns="False"
+                          BorderBrush="{DynamicResource AccentColorBrush}"
+                          BorderThickness="1"
+                          IsReadOnly="True"
+                          ItemsSource="{Binding Source={StaticResource SortedPlayerEnmityItems}}">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Binding="{Binding Name}"
+                                            Header="{Binding Locale[informer_NameHeader],
+                                                             Source={StaticResource PluginViewModel}}"
+                                            utilities:GridViewSort.PropertyName="Name" />
+                        <DataGridTextColumn Binding="{Binding Enmity}"
+                                            Header="{Binding Locale[informer_EnmityPercentHeader],
+                                                             Source={StaticResource PluginViewModel}}"
+                                            utilities:GridViewSort.PropertyName="Enmity" />
+                        <DataGridTextColumn Binding="{Binding ID}"
+                                            Header="ID"
+                                            Visibility="Collapsed"
+                                            utilities:GridViewSort.PropertyName="ID" />
+                    </DataGrid.Columns>
+                </DataGrid>
+            </TabItem>
+            <TabItem Header="{Binding Locale[informer_TargetsTabHeader],
+                                      Source={StaticResource PluginViewModel}}">
+                <ScrollViewer>
+                    <StackPanel>
+                        <GroupBox Header="{Binding Locale[informer_CurrentTargetHeader],
+                                                   Source={StaticResource PluginViewModel}}">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="*" />
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="100" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+                                <StackPanel Grid.Row="0"
+                                            Grid.Column="0">
+                                    <Label Content="{Binding Locale[informer_NameLabel],
+                                                             Source={StaticResource PluginViewModel}}"
+                                           Style="{StaticResource LabelStyle}" />
+                                    <Label Content="{Binding Locale[informer_LevelLabel],
+                                                             Source={StaticResource PluginViewModel}}"
+                                           Style="{StaticResource LabelStyle}" />
+                                    <Label Content="{Binding Locale[informer_HPLabel],
+                                                             Source={StaticResource PluginViewModel}}"
+                                           Style="{StaticResource LabelStyle}" />
+                                    <Label Content="{Binding Locale[informer_MPLabel],
+                                                             Source={StaticResource PluginViewModel}}"
+                                           Style="{StaticResource LabelStyle}" />
+                                    <Label Content="{Binding Locale[informer_TPLabel],
+                                                             Source={StaticResource PluginViewModel}}"
+                                           Style="{StaticResource LabelStyle}" />
+                                    <Label Content="{Binding Locale[informer_GPLabel],
+                                                             Source={StaticResource PluginViewModel}}"
+                                           Style="{StaticResource LabelStyle}" />
+                                    <Label Content="{Binding Locale[informer_CPLabel],
+                                                             Source={StaticResource PluginViewModel}}"
+                                           Style="{StaticResource LabelStyle}" />
+                                    <Label Content="{Binding Locale[informer_StatusCountLabel],
+                                                             Source={StaticResource PluginViewModel}}"
+                                           Style="{StaticResource LabelStyle}" />
+                                </StackPanel>
+                                <StackPanel Grid.Row="0"
+                                            Grid.Column="1">
+                                    <Label Content="{Binding CurrentTarget.Name,
+                                                             Source={StaticResource XIVInfoViewModel}}"
+                                           Style="{StaticResource LabelStyle}" />
+                                    <Label Content="{Binding CurrentTarget.Level,
+                                                             Source={StaticResource XIVInfoViewModel}}"
+                                           Style="{StaticResource LabelStyle}" />
+                                    <Label Content="{Binding CurrentTarget.HPString,
+                                                             Source={StaticResource XIVInfoViewModel},
+                                                             StringFormat=\{0:P2\}}"
+                                           Style="{StaticResource LabelStyle}" />
+                                    <Label Content="{Binding CurrentTarget.MPString,
+                                                             Source={StaticResource XIVInfoViewModel}}"
+                                           Style="{StaticResource LabelStyle}" />
+                                    <Label Content="{Binding CurrentTarget.TPString,
+                                                             Source={StaticResource XIVInfoViewModel}}"
+                                           Style="{StaticResource LabelStyle}" />
+                                    <Label Content="{Binding CurrentTarget.GPString,
+                                                             Source={StaticResource XIVInfoViewModel}}"
+                                           Style="{StaticResource LabelStyle}" />
+                                    <Label Content="{Binding CurrentTarget.CPString,
+                                                             Source={StaticResource XIVInfoViewModel}}"
+                                           Style="{StaticResource LabelStyle}" />
+                                    <Label Content="{Binding CurrentTarget.StatusEntries.Count,
+                                                             Source={StaticResource XIVInfoViewModel}}"
+                                           Style="{StaticResource LabelStyle}" />
+                                </StackPanel>
+                            </Grid>
+                        </GroupBox>
+                        <GroupBox Header="{Binding Locale[informer_FocusTargetHeader],
+                                                   Source={StaticResource PluginViewModel}}">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="*" />
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="100" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+                                <StackPanel Grid.Row="0"
+                                            Grid.Column="0">
+                                    <Label Content="{Binding Locale[informer_NameLabel],
+                                                             Source={StaticResource PluginViewModel}}"
+                                           Style="{StaticResource LabelStyle}" />
+                                    <Label Content="{Binding Locale[informer_LevelLabel],
+                                                             Source={StaticResource PluginViewModel}}"
+                                           Style="{StaticResource LabelStyle}" />
+                                    <Label Content="{Binding Locale[informer_HPLabel],
+                                                             Source={StaticResource PluginViewModel}}"
+                                           Style="{StaticResource LabelStyle}" />
+                                    <Label Content="{Binding Locale[informer_MPLabel],
+                                                             Source={StaticResource PluginViewModel}}"
+                                           Style="{StaticResource LabelStyle}" />
+                                    <Label Content="{Binding Locale[informer_TPLabel],
+                                                             Source={StaticResource PluginViewModel}}"
+                                           Style="{StaticResource LabelStyle}" />
+                                    <Label Content="{Binding Locale[informer_GPLabel],
+                                                             Source={StaticResource PluginViewModel}}"
+                                           Style="{StaticResource LabelStyle}" />
+                                    <Label Content="{Binding Locale[informer_CPLabel],
+                                                             Source={StaticResource PluginViewModel}}"
+                                           Style="{StaticResource LabelStyle}" />
+                                    <Label Content="{Binding Locale[informer_StatusCountLabel],
+                                                             Source={StaticResource PluginViewModel}}"
+                                           Style="{StaticResource LabelStyle}" />
+                                </StackPanel>
+                                <StackPanel Grid.Row="0"
+                                            Grid.Column="1">
+                                    <Label Content="{Binding FocusTarget.Name,
+                                                             Source={StaticResource XIVInfoViewModel}}"
+                                           Style="{StaticResource LabelStyle}" />
+                                    <Label Content="{Binding FocusTarget.Level,
+                                                             Source={StaticResource XIVInfoViewModel}}"
+                                           Style="{StaticResource LabelStyle}" />
+                                    <Label Content="{Binding FocusTarget.HPString,
+                                                             Source={StaticResource XIVInfoViewModel},
+                                                             StringFormat=\{0:P2\}}"
+                                           Style="{StaticResource LabelStyle}" />
+                                    <Label Content="{Binding FocusTarget.MPString,
+                                                             Source={StaticResource XIVInfoViewModel}}"
+                                           Style="{StaticResource LabelStyle}" />
+                                    <Label Content="{Binding FocusTarget.TPString,
+                                                             Source={StaticResource XIVInfoViewModel}}"
+                                           Style="{StaticResource LabelStyle}" />
+                                    <Label Content="{Binding FocusTarget.GPString,
+                                                             Source={StaticResource XIVInfoViewModel}}"
+                                           Style="{StaticResource LabelStyle}" />
+                                    <Label Content="{Binding FocusTarget.CPString,
+                                                             Source={StaticResource XIVInfoViewModel}}"
+                                           Style="{StaticResource LabelStyle}" />
+                                    <Label Content="{Binding FocusTarget.StatusEntries.Count,
+                                                             Source={StaticResource XIVInfoViewModel}}"
+                                           Style="{StaticResource LabelStyle}" />
+                                </StackPanel>
+                            </Grid>
+                        </GroupBox>
+                        <GroupBox Header="{Binding Locale[informer_MouseOverTargetHeader],
+                                                   Source={StaticResource PluginViewModel}}">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="*" />
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="100" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+                                <StackPanel Grid.Row="0"
+                                            Grid.Column="0">
+                                    <Label Content="{Binding Locale[informer_NameLabel],
+                                                             Source={StaticResource PluginViewModel}}"
+                                           Style="{StaticResource LabelStyle}" />
+                                    <Label Content="{Binding Locale[informer_LevelLabel],
+                                                             Source={StaticResource PluginViewModel}}"
+                                           Style="{StaticResource LabelStyle}" />
+                                    <Label Content="{Binding Locale[informer_HPLabel],
+                                                             Source={StaticResource PluginViewModel}}"
+                                           Style="{StaticResource LabelStyle}" />
+                                    <Label Content="{Binding Locale[informer_MPLabel],
+                                                             Source={StaticResource PluginViewModel}}"
+                                           Style="{StaticResource LabelStyle}" />
+                                    <Label Content="{Binding Locale[informer_TPLabel],
+                                                             Source={StaticResource PluginViewModel}}"
+                                           Style="{StaticResource LabelStyle}" />
+                                    <Label Content="{Binding Locale[informer_GPLabel],
+                                                             Source={StaticResource PluginViewModel}}"
+                                           Style="{StaticResource LabelStyle}" />
+                                    <Label Content="{Binding Locale[informer_CPLabel],
+                                                             Source={StaticResource PluginViewModel}}"
+                                           Style="{StaticResource LabelStyle}" />
+                                    <Label Content="{Binding Locale[informer_StatusCountLabel],
+                                                             Source={StaticResource PluginViewModel}}"
+                                           Style="{StaticResource LabelStyle}" />
+                                </StackPanel>
+                                <StackPanel Grid.Row="0"
+                                            Grid.Column="1">
+                                    <Label Content="{Binding MouseOverTarget.Name,
+                                                             Source={StaticResource XIVInfoViewModel}}"
+                                           Style="{StaticResource LabelStyle}" />
+                                    <Label Content="{Binding MouseOverTarget.Level,
+                                                             Source={StaticResource XIVInfoViewModel}}"
+                                           Style="{StaticResource LabelStyle}" />
+                                    <Label Content="{Binding MouseOverTarget.HPString,
+                                                             Source={StaticResource XIVInfoViewModel},
+                                                             StringFormat=\{0:P2\}}"
+                                           Style="{StaticResource LabelStyle}" />
+                                    <Label Content="{Binding MouseOverTarget.MPString,
+                                                             Source={StaticResource XIVInfoViewModel}}"
+                                           Style="{StaticResource LabelStyle}" />
+                                    <Label Content="{Binding MouseOverTarget.TPString,
+                                                             Source={StaticResource XIVInfoViewModel}}"
+                                           Style="{StaticResource LabelStyle}" />
+                                    <Label Content="{Binding MouseOverTarget.GPString,
+                                                             Source={StaticResource XIVInfoViewModel}}"
+                                           Style="{StaticResource LabelStyle}" />
+                                    <Label Content="{Binding MouseOverTarget.CPString,
+                                                             Source={StaticResource XIVInfoViewModel}}"
+                                           Style="{StaticResource LabelStyle}" />
+                                    <Label Content="{Binding MouseOverTarget.StatusEntries.Count,
+                                                             Source={StaticResource XIVInfoViewModel}}"
+                                           Style="{StaticResource LabelStyle}" />
+                                </StackPanel>
+                            </Grid>
+                        </GroupBox>
+                        <GroupBox Header="{Binding Locale[informer_PreviousTargetHeader],
+                                                   Source={StaticResource PluginViewModel}}">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="*" />
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="100" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+                                <StackPanel Grid.Row="0"
+                                            Grid.Column="0">
+                                    <Label Content="{Binding Locale[informer_NameLabel],
+                                                             Source={StaticResource PluginViewModel}}"
+                                           Style="{StaticResource LabelStyle}" />
+                                    <Label Content="{Binding Locale[informer_LevelLabel],
+                                                             Source={StaticResource PluginViewModel}}"
+                                           Style="{StaticResource LabelStyle}" />
+                                    <Label Content="{Binding Locale[informer_HPLabel],
+                                                             Source={StaticResource PluginViewModel}}"
+                                           Style="{StaticResource LabelStyle}" />
+                                    <Label Content="{Binding Locale[informer_MPLabel],
+                                                             Source={StaticResource PluginViewModel}}"
+                                           Style="{StaticResource LabelStyle}" />
+                                    <Label Content="{Binding Locale[informer_TPLabel],
+                                                             Source={StaticResource PluginViewModel}}"
+                                           Style="{StaticResource LabelStyle}" />
+                                    <Label Content="{Binding Locale[informer_GPLabel],
+                                                             Source={StaticResource PluginViewModel}}"
+                                           Style="{StaticResource LabelStyle}" />
+                                    <Label Content="{Binding Locale[informer_CPLabel],
+                                                             Source={StaticResource PluginViewModel}}"
+                                           Style="{StaticResource LabelStyle}" />
+                                    <Label Content="{Binding Locale[informer_StatusCountLabel],
+                                                             Source={StaticResource PluginViewModel}}"
+                                           Style="{StaticResource LabelStyle}" />
+                                </StackPanel>
+                                <StackPanel Grid.Row="0"
+                                            Grid.Column="1">
+                                    <Label Content="{Binding PreviousTarget.Name,
+                                                             Source={StaticResource XIVInfoViewModel}}"
+                                           Style="{StaticResource LabelStyle}" />
+                                    <Label Content="{Binding PreviousTarget.Level,
+                                                             Source={StaticResource XIVInfoViewModel}}"
+                                           Style="{StaticResource LabelStyle}" />
+                                    <Label Content="{Binding PreviousTarget.HPString,
+                                                             Source={StaticResource XIVInfoViewModel},
+                                                             StringFormat=\{0:P2\}}"
+                                           Style="{StaticResource LabelStyle}" />
+                                    <Label Content="{Binding PreviousTarget.MPString,
+                                                             Source={StaticResource XIVInfoViewModel}}"
+                                           Style="{StaticResource LabelStyle}" />
+                                    <Label Content="{Binding PreviousTarget.TPString,
+                                                             Source={StaticResource XIVInfoViewModel}}"
+                                           Style="{StaticResource LabelStyle}" />
+                                    <Label Content="{Binding PreviousTarget.GPString,
+                                                             Source={StaticResource XIVInfoViewModel}}"
+                                           Style="{StaticResource LabelStyle}" />
+                                    <Label Content="{Binding PreviousTarget.CPString,
+                                                             Source={StaticResource XIVInfoViewModel}}"
+                                           Style="{StaticResource LabelStyle}" />
+                                    <Label Content="{Binding PreviousTarget.StatusEntries.Count,
+                                                             Source={StaticResource XIVInfoViewModel}}"
+                                           Style="{StaticResource LabelStyle}" />
+                                </StackPanel>
+                            </Grid>
+                        </GroupBox>
+                    </StackPanel>
+                </ScrollViewer>
+            </TabItem>
+            <TabItem Header="{Binding Locale[informer_TargetEnmityTabHeader],
+                                      Source={StaticResource PluginViewModel}}">
+
+                <TabItem.Resources>
+                    <CollectionViewSource x:Key="SortedTargetEnmityItems"
+                                          Source="{Binding EnmityEntries,
+                                                           Source={StaticResource XIVInfoViewModel}}">
+                        <CollectionViewSource.SortDescriptions>
+                            <componentModel:SortDescription Direction="Descending"
+                                                            PropertyName="Enmity" />
+                        </CollectionViewSource.SortDescriptions>
+                    </CollectionViewSource>
+                </TabItem.Resources>
+                <DataGrid x:Name="TargetEnmityDG"
+                          AutoGenerateColumns="False"
+                          BorderBrush="{DynamicResource AccentColorBrush}"
+                          BorderThickness="1"
+                          IsReadOnly="True"
+                          ItemsSource="{Binding Source={StaticResource SortedTargetEnmityItems}}">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Binding="{Binding Name}"
+                                            Header="{Binding Locale[informer_NameHeader],
+                                                             Source={StaticResource PluginViewModel}}"
+                                            utilities:GridViewSort.PropertyName="Name" />
+                        <DataGridTextColumn Binding="{Binding Enmity}"
+                                            Header="{Binding Locale[informer_EnmityHeader],
+                                                             Source={StaticResource PluginViewModel}}"
+                                            utilities:GridViewSort.PropertyName="Enmity" />
+                        <DataGridTextColumn Binding="{Binding ID}"
+                                            Header="ID"
+                                            Visibility="Collapsed"
+                                            utilities:GridViewSort.PropertyName="ID" />
+                    </DataGrid.Columns>
+                </DataGrid>
+            </TabItem>
+        </TabControl>
     </Grid>
 </UserControl>

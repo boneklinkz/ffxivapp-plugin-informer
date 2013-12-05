@@ -6,6 +6,7 @@
 #region Usings
 
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
@@ -25,7 +26,12 @@ namespace FFXIVAPP.Plugin.Informer.ViewModels
         private IList<ActorEntity> _currentNPCs;
         private IList<ActorEntity> _currentPCs;
         private ActorEntity _currentTarget;
+        private ActorEntity _mouseOverTarget;
+        private ActorEntity _focusTarget;
+        private ActorEntity _previousTarget;
         private ActorEntity _currentUser;
+        private ObservableCollection<EnmityEntry> _enmityEntries;
+        private ObservableCollection<EnmityEntry> _agroEntries; 
 
         public static XIVInfoViewModel Instance
         {
@@ -49,6 +55,56 @@ namespace FFXIVAPP.Plugin.Informer.ViewModels
             set
             {
                 _currentTarget = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        public ActorEntity MouseOverTarget
+        {
+            get { return _mouseOverTarget ?? (_mouseOverTarget = new ActorEntity()); }
+            set
+            {
+                _mouseOverTarget = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        public ActorEntity FocusTarget
+        {
+            get { return _focusTarget ?? (_focusTarget = new ActorEntity()); }
+            set
+            {
+                _focusTarget = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        public ActorEntity PreviousTarget
+        {
+            get { return _previousTarget ?? (_previousTarget = new ActorEntity()); }
+            set
+            {
+                _previousTarget = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        public ObservableCollection<EnmityEntry> EnmityEntries
+        {
+            get { return _enmityEntries ?? (_enmityEntries = new ObservableCollection<EnmityEntry>()); }
+            set
+            {
+                _enmityEntries = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        public ObservableCollection<EnmityEntry> AgroEntries
+        {
+            get { return _agroEntries ?? (_agroEntries = new ObservableCollection<EnmityEntry>()); }
+            set
+            {
+                _agroEntries = value;
                 RaisePropertyChanged();
             }
         }
@@ -88,6 +144,7 @@ namespace FFXIVAPP.Plugin.Informer.ViewModels
         #region Declarations
 
         public Timer InfoTimer = new Timer(100);
+
         public bool IsProcessing { get; set; }
 
         #endregion
@@ -105,32 +162,7 @@ namespace FFXIVAPP.Plugin.Informer.ViewModels
                 return;
             }
             IsProcessing = true;
-            if (CurrentUser.TargetID > 0)
-            {
-                if (CurrentMonsters.Any(m => m.ID == CurrentUser.TargetID))
-                {
-                    CurrentTarget = CurrentMonsters.FirstOrDefault(m => m.ID == CurrentUser.TargetID);
-                }
-                else if (CurrentNPCs.Any(n => n.NPCID1 == CurrentUser.TargetID))
-                {
-                    CurrentTarget = CurrentNPCs.FirstOrDefault(n => n.NPCID1 == CurrentUser.TargetID);
-                }
-                else if (CurrentPCs.Any(p => p.ID == CurrentUser.TargetID))
-                {
-                    CurrentTarget = CurrentPCs.FirstOrDefault(p => p.ID == CurrentUser.TargetID);
-                }
-                else
-                {
-                    CurrentTarget = new ActorEntity
-                    {
-                        Name = "NotFound"
-                    };
-                }
-            }
-            else
-            {
-                CurrentTarget = new ActorEntity();
-            }
+            // do stuff if you have too
             IsProcessing = false;
         }
 

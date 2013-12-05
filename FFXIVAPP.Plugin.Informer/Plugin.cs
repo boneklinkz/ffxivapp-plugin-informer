@@ -7,6 +7,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.ComponentModel.Composition;
 using System.Linq;
@@ -116,6 +117,8 @@ namespace FFXIVAPP.Plugin.Informer
             ApplicationContext.MonsterWorker.OnNewEntities += MonsterWorkerOnNewEntities;
             ApplicationContext.NPCWorker.OnNewEntities += NPCWorkerOnNewEntities;
             ApplicationContext.PCWorker.OnNewEntities += PCWorkerOnNewEntities;
+            ApplicationContext.PlayerInfoWorker.OnNewEntity += PlayerInfoWorkerOnNewEntity;
+            ApplicationContext.TargetWorker.OnNewEntity += TargetWorkerOnNewEntity;
             FriendlyName = "Informer";
             Name = AssemblyHelper.Name;
             Icon = "Logo.png";
@@ -205,6 +208,20 @@ namespace FFXIVAPP.Plugin.Informer
             {
                 XIVInfoViewModel.Instance.CurrentUser = actorEntities.First();
             }
+        }
+
+        private void PlayerInfoWorkerOnNewEntity(PlayerEntity playerEntity)
+        {
+            XIVInfoViewModel.Instance.AgroEntries = new ObservableCollection<EnmityEntry>(playerEntity.EnmityEntries);
+        }
+
+        private void TargetWorkerOnNewEntity(TargetEntity targetEntity)
+        {
+            XIVInfoViewModel.Instance.EnmityEntries = new ObservableCollection<EnmityEntry>(targetEntity.EnmityEntries ?? new List<EnmityEntry>());
+            XIVInfoViewModel.Instance.CurrentTarget = targetEntity.CurrentTarget ?? new ActorEntity();
+            XIVInfoViewModel.Instance.MouseOverTarget = targetEntity.MouseOverTarget ?? new ActorEntity();
+            XIVInfoViewModel.Instance.FocusTarget = targetEntity.FocusTarget ?? new ActorEntity();
+            XIVInfoViewModel.Instance.PreviousTarget = targetEntity.PreviousTarget ?? new ActorEntity();
         }
     }
 }
