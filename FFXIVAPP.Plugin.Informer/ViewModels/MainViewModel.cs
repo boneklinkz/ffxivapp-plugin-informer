@@ -3,12 +3,8 @@
 // 
 // Copyright © 2013 ZAM Network LLC
 
-#region Usings
-
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
-
-#endregion
 
 namespace FFXIVAPP.Plugin.Informer.ViewModels
 {

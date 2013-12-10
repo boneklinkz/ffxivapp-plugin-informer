@@ -3,17 +3,12 @@
 // 
 // Copyright © 2013 ZAM Network LLC
 
-#region Usings
-
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Timers;
 using FFXIVAPP.Common.Core.Memory;
-
-#endregion
 
 namespace FFXIVAPP.Plugin.Informer.ViewModels
 {
@@ -22,16 +17,16 @@ namespace FFXIVAPP.Plugin.Informer.ViewModels
         #region Property Bindings
 
         private static XIVInfoViewModel _instance;
+        private ObservableCollection<EnmityEntry> _agroEntries;
         private IList<ActorEntity> _currentMonsters;
         private IList<ActorEntity> _currentNPCs;
         private IList<ActorEntity> _currentPCs;
         private ActorEntity _currentTarget;
-        private ActorEntity _mouseOverTarget;
-        private ActorEntity _focusTarget;
-        private ActorEntity _previousTarget;
         private ActorEntity _currentUser;
         private ObservableCollection<EnmityEntry> _enmityEntries;
-        private ObservableCollection<EnmityEntry> _agroEntries; 
+        private ActorEntity _focusTarget;
+        private ActorEntity _mouseOverTarget;
+        private ActorEntity _previousTarget;
 
         public static XIVInfoViewModel Instance
         {

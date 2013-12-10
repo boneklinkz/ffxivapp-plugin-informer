@@ -3,13 +3,9 @@
 // 
 // Copyright © 2013 ZAM Network LLC
 
-#region Usings
-
 using System;
 using System.Xml.Linq;
 using FFXIVAPP.Plugin.Informer.Properties;
-
-#endregion
 
 namespace FFXIVAPP.Plugin.Informer
 {

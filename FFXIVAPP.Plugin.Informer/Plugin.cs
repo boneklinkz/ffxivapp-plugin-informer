@@ -3,8 +3,6 @@
 // 
 // Copyright © 2013 ZAM Network LLC
 
-#region Usings
-
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -24,8 +22,6 @@ using FFXIVAPP.Plugin.Informer.Helpers;
 using FFXIVAPP.Plugin.Informer.Properties;
 using FFXIVAPP.Plugin.Informer.ViewModels;
 using NLog;
-
-#endregion
 
 namespace FFXIVAPP.Plugin.Informer
 {
@@ -48,6 +44,12 @@ namespace FFXIVAPP.Plugin.Informer
         private string _name;
         private MessageBoxResult _popupResult;
 
+        public IPluginHost Host
+        {
+            get { return _host; }
+            set { PHost = _host = value; }
+        }
+
         public MessageBoxResult PopupResult
         {
             get { return _popupResult; }
@@ -56,12 +58,6 @@ namespace FFXIVAPP.Plugin.Informer
                 _popupResult = value;
                 PluginViewModel.Instance.OnPopupResultChanged(new PopupResultEvent(value));
             }
-        }
-
-        public IPluginHost Host
-        {
-            get { return _host; }
-            set { PHost = _host = value; }
         }
 
         public Dictionary<string, string> Locale
