@@ -3,9 +3,11 @@
 // 
 // Copyright © 2013 ZAM Network LLC
 
+using System;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows;
+using FFXIVAPP.Plugin.Informer.Properties;
 
 namespace FFXIVAPP.Plugin.Informer
 {
@@ -29,11 +31,18 @@ namespace FFXIVAPP.Plugin.Informer
         public ShellViewModel()
         {
             Initializer.LoadSettings();
+            Settings.Default.PropertyChanged += DefaultOnPropertyChanged;
         }
 
         internal static void Loaded(object sender, RoutedEventArgs e)
         {
+            ShellView.View.Loaded -= Loaded;
             Initializer.ApplyTheming();
+        }
+
+        private static void DefaultOnPropertyChanged(object sender, PropertyChangedEventArgs propertyChangedEventArgs)
+        {
+            
         }
 
         #region Loading Functions
