@@ -80,7 +80,10 @@ namespace FFXIVAPP.Plugin.Informer
                 return;
             }
             var monsterEntities = actorEntitiesEvent.ActorEntities;
-            XIVInfoViewModel.Instance.CurrentMonsters = monsterEntities;
+            if (monsterEntities.Any())
+            {
+                XIVInfoViewModel.Instance.CurrentMonsters = new ObservableCollection<ActorEntity>(monsterEntities);
+            }
         }
 
         private static void OnNewNPCEntries(object sender, ActorEntitiesEvent actorEntitiesEvent)
@@ -94,7 +97,10 @@ namespace FFXIVAPP.Plugin.Informer
                 return;
             }
             var npcEntities = actorEntitiesEvent.ActorEntities;
-            XIVInfoViewModel.Instance.CurrentNPCs = npcEntities;
+            if (npcEntities.Any())
+            {
+                XIVInfoViewModel.Instance.CurrentNPCs = new ObservableCollection<ActorEntity>(npcEntities);
+            }
         }
 
         private static void OnNewPCEntries(object sender, ActorEntitiesEvent actorEntitiesEvent)
@@ -107,10 +113,10 @@ namespace FFXIVAPP.Plugin.Informer
                 return;
             }
             var pcEntities = actorEntitiesEvent.ActorEntities;
-            XIVInfoViewModel.Instance.CurrentPCs = pcEntities;
             if (pcEntities.Any())
             {
                 XIVInfoViewModel.Instance.CurrentUser = pcEntities.First();
+                XIVInfoViewModel.Instance.CurrentPCs = new ObservableCollection<ActorEntity>(pcEntities);
             }
         }
 
@@ -124,7 +130,7 @@ namespace FFXIVAPP.Plugin.Informer
                 return;
             }
             var playerEntity = playerEntityEvent.PlayerEntity;
-            XIVInfoViewModel.Instance.AgroEntries = new ObservableCollection<EnmityEntry>(playerEntity.EnmityEntries);
+            XIVInfoViewModel.Instance.AgroEntries = new ObservableCollection<EnmityEntry>(playerEntity.EnmityEntries ?? new List<EnmityEntry>());
         }
 
         private static void OnNewTargetEntity(object sender, TargetEntityEvent targetEntityEvent)

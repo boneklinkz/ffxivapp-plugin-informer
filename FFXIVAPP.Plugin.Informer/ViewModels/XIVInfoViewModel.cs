@@ -18,9 +18,9 @@ namespace FFXIVAPP.Plugin.Informer.ViewModels
 
         private static XIVInfoViewModel _instance;
         private ObservableCollection<EnmityEntry> _agroEntries;
-        private IList<ActorEntity> _currentMonsters;
-        private IList<ActorEntity> _currentNPCs;
-        private IList<ActorEntity> _currentPCs;
+        private ObservableCollection<ActorEntity> _currentMonsters;
+        private ObservableCollection<ActorEntity> _currentNPCs;
+        private ObservableCollection<ActorEntity> _currentPCs;
         private ActorEntity _currentTarget;
         private ActorEntity _currentUser;
         private ObservableCollection<EnmityEntry> _enmityEntries;
@@ -104,9 +104,9 @@ namespace FFXIVAPP.Plugin.Informer.ViewModels
             }
         }
 
-        public IList<ActorEntity> CurrentNPCs
+        public ObservableCollection<ActorEntity> CurrentNPCs
         {
-            get { return _currentNPCs ?? (_currentNPCs = new List<ActorEntity>()); }
+            get { return _currentNPCs ?? (_currentNPCs = new ObservableCollection<ActorEntity>()); }
             set
             {
                 _currentNPCs = value;
@@ -114,9 +114,9 @@ namespace FFXIVAPP.Plugin.Informer.ViewModels
             }
         }
 
-        public IList<ActorEntity> CurrentMonsters
+        public ObservableCollection<ActorEntity> CurrentMonsters
         {
-            get { return _currentMonsters ?? (_currentMonsters = new List<ActorEntity>()); }
+            get { return _currentMonsters ?? (_currentMonsters = new ObservableCollection<ActorEntity>()); }
             set
             {
                 _currentMonsters = value;
@@ -124,9 +124,9 @@ namespace FFXIVAPP.Plugin.Informer.ViewModels
             }
         }
 
-        public IList<ActorEntity> CurrentPCs
+        public ObservableCollection<ActorEntity> CurrentPCs
         {
-            get { return _currentPCs ?? (_currentPCs = new List<ActorEntity>()); }
+            get { return _currentPCs ?? (_currentPCs = new ObservableCollection<ActorEntity>()); }
             set
             {
                 _currentPCs = value;
