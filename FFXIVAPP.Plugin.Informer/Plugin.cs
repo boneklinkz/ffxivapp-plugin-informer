@@ -5,22 +5,17 @@
 
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.ComponentModel.Composition;
-using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Controls;
-using FFXIVAPP.Common.Core.Memory;
 using FFXIVAPP.Common.Events;
 using FFXIVAPP.Common.Helpers;
 using FFXIVAPP.Common.Utilities;
 using FFXIVAPP.IPluginInterface;
-using FFXIVAPP.IPluginInterface.Events;
 using FFXIVAPP.Plugin.Informer.Helpers;
 using FFXIVAPP.Plugin.Informer.Properties;
-using FFXIVAPP.Plugin.Informer.ViewModels;
 using NLog;
 
 namespace FFXIVAPP.Plugin.Informer
@@ -125,6 +120,10 @@ namespace FFXIVAPP.Plugin.Informer
              * 
              * Suggested use is to not save settings if updating. Other disposing events could happen based on your needs.
              */
+            if (isUpdating)
+            {
+                return;
+            }
             Settings.Default.Save();
         }
 
