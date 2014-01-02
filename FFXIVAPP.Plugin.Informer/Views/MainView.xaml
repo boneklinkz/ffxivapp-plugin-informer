@@ -106,6 +106,25 @@
                                 </StackPanel>
                             </Grid>
                         </GroupBox>
+                        <GroupBox Header="Status Entries">
+                            <DataGrid x:Name="PlayerStatusEntriesDG"
+                                      AutoGenerateColumns="False"
+                                      BorderBrush="{DynamicResource AccentColorBrush}"
+                                      BorderThickness="1"
+                                      IsReadOnly="True"
+                                      ItemsSource="{Binding CurrentUser.StatusEntries,
+                                                            Source={StaticResource XIVInfoViewModel}}">
+                                <DataGrid.Columns>
+                                    <DataGridTextColumn Binding="{Binding StatusName}"
+                                                        Header="{Binding Locale[informer_NameLabel],
+                                                                         Source={StaticResource PluginViewModel}}"
+                                                        utilities:GridViewSort.PropertyName="StatusName" />
+                                    <DataGridTextColumn Binding="{Binding Duration, StringFormat=\{0:F2\}}"
+                                                        Header="Duration"
+                                                        utilities:GridViewSort.PropertyName="Duration" />
+                                </DataGrid.Columns>
+                            </DataGrid>
+                        </GroupBox>
                     </StackPanel>
                 </ScrollViewer>
             </TabItem>

@@ -17,27 +17,27 @@ namespace FFXIVAPP.Plugin.Informer
         public static void Subscribe()
         {
             Plugin.PHost.NewConstantsEntity += OnNewConstantsEntity;
-            Plugin.PHost.NewChatLogEntry += OnNewChatLogEntry;
+            //Plugin.PHost.NewChatLogEntry += OnNewChatLogEntry;
             Plugin.PHost.NewMonsterEntries += OnNewMonsterEntries;
             Plugin.PHost.NewNPCEntries += OnNewNPCEntries;
             Plugin.PHost.NewPCEntries += OnNewPCEntries;
             Plugin.PHost.NewPlayerEntity += OnNewPlayerEntity;
             Plugin.PHost.NewTargetEntity += OnNewTargetEntity;
-            Plugin.PHost.NewParseEntity += OnNewParseEntity;
-            Plugin.PHost.NewPartyEntries += OnNewPartyEntries;
+            //Plugin.PHost.NewParseEntity += OnNewParseEntity;
+            //Plugin.PHost.NewPartyEntries += OnNewPartyEntries;
         }
 
         public static void UnSubscribe()
         {
             Plugin.PHost.NewConstantsEntity -= OnNewConstantsEntity;
-            Plugin.PHost.NewChatLogEntry -= OnNewChatLogEntry;
+            //Plugin.PHost.NewChatLogEntry -= OnNewChatLogEntry;
             Plugin.PHost.NewMonsterEntries -= OnNewMonsterEntries;
             Plugin.PHost.NewNPCEntries -= OnNewNPCEntries;
             Plugin.PHost.NewPCEntries -= OnNewPCEntries;
             Plugin.PHost.NewPlayerEntity -= OnNewPlayerEntity;
             Plugin.PHost.NewTargetEntity -= OnNewTargetEntity;
-            Plugin.PHost.NewParseEntity -= OnNewParseEntity;
-            Plugin.PHost.NewPartyEntries -= OnNewPartyEntries;
+            //Plugin.PHost.NewParseEntity -= OnNewParseEntity;
+            //Plugin.PHost.NewPartyEntries -= OnNewPartyEntries;
         }
 
         #region Subscriptions
@@ -61,16 +61,16 @@ namespace FFXIVAPP.Plugin.Informer
             PluginViewModel.Instance.EnableHelpLabels = Constants.EnableHelpLabels;
         }
 
-        private static void OnNewChatLogEntry(object sender, ChatLogEntryEvent chatLogEntryEvent)
-        {
-            // delegate event from chat log, not required to subsribe
-            // this updates 100 times a second and only sends a line when it gets a new one
-            if (sender == null)
-            {
-                return;
-            }
-            var chatLogEntry = chatLogEntryEvent.ChatLogEntry;
-        }
+        //private static void OnNewChatLogEntry(object sender, ChatLogEntryEvent chatLogEntryEvent)
+        //{
+        //    // delegate event from chat log, not required to subsribe
+        //    // this updates 100 times a second and only sends a line when it gets a new one
+        //    if (sender == null)
+        //    {
+        //        return;
+        //    }
+        //    var chatLogEntry = chatLogEntryEvent.ChatLogEntry;
+        //}
 
         private static void OnNewMonsterEntries(object sender, ActorEntitiesEvent actorEntitiesEvent)
         {
@@ -154,27 +154,27 @@ namespace FFXIVAPP.Plugin.Informer
             XIVInfoViewModel.Instance.PreviousTarget = targetEntity.PreviousTarget ?? new ActorEntity();
         }
 
-        private static void OnNewParseEntity(object sender, ParseEntityEvent parseEntityEvent)
-        {
-            // delegate event from data work; which right now has basic parsing stats for widgets.
-            // includes global total stats for damage, healing, damage taken
-            // include player list with name, hps, dps, dtps, total stats like the global and percent of each total stat
-            if (sender == null)
-            {
-                return;
-            }
-            var parseEntity = parseEntityEvent.ParseEntity;
-        }
+        //private static void OnNewParseEntity(object sender, ParseEntityEvent parseEntityEvent)
+        //{
+        //    // delegate event from data work; which right now has basic parsing stats for widgets.
+        //    // includes global total stats for damage, healing, damage taken
+        //    // include player list with name, hps, dps, dtps, total stats like the global and percent of each total stat
+        //    if (sender == null)
+        //    {
+        //        return;
+        //    }
+        //    var parseEntity = parseEntityEvent.ParseEntity;
+        //}
 
-        private static void OnNewPartyEntries(object sender, PartyEntitiesEvent partyEntitiesEvent)
-        {
-            // delegate event that shows current party basic info
-            if (sender == null)
-            {
-                return;
-            }
-            var partyEntities = partyEntitiesEvent.PartyEntities;
-        }
+        //private static void OnNewPartyEntries(object sender, PartyEntitiesEvent partyEntitiesEvent)
+        //{
+        //    // delegate event that shows current party basic info
+        //    if (sender == null)
+        //    {
+        //        return;
+        //    }
+        //    var partyEntities = partyEntitiesEvent.PartyEntities;
+        //}
 
         #endregion
     }
