@@ -1,7 +1,12 @@
 ﻿<wpf:ResourceDictionary xml:space="preserve" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:s="clr-namespace:System;assembly=mscorlib" xmlns:ss="urn:shemas-jetbrains-com:settings-storage-xaml" xmlns:wpf="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
-	<s:String x:Key="/Default/Environment/InjectedLayers/FileInjectedLayer/=320AA0D200543340B8A4B166762C954E/AbsolutePath/@EntryValue">E:\Users\Icehunter\Documents\GitHub\ffxivapp-plugin-log\ReSharper.DotSettings</s:String>
-	<s:String x:Key="/Default/Environment/InjectedLayers/FileInjectedLayer/=320AA0D200543340B8A4B166762C954E/RelativePath/@EntryValue">..\..\ffxivapp-plugin-log\ReSharper.DotSettings</s:String>
-	<s:Boolean x:Key="/Default/Environment/InjectedLayers/FileInjectedLayer/=320AA0D200543340B8A4B166762C954E/@KeyIndexDefined">True</s:Boolean>
-	<s:Boolean x:Key="/Default/Environment/InjectedLayers/InjectedLayerCustomization/=File320AA0D200543340B8A4B166762C954E/@KeyIndexDefined">True</s:Boolean>
-	<s:Double x:Key="/Default/Environment/InjectedLayers/InjectedLayerCustomization/=File320AA0D200543340B8A4B166762C954E/RelativePriority/@EntryValue">1</s:Double>
+	<s:Boolean x:Key="/Default/Environment/InjectedLayers/FileInjectedLayer/=68578BFA99D68C4B9482BA7081590914/@KeyIndexDefined">True</s:Boolean>
+	<s:String x:Key="/Default/Environment/InjectedLayers/FileInjectedLayer/=68578BFA99D68C4B9482BA7081590914/AbsolutePath/@EntryValue">E:\Users\Icehunter\Documents\GitHub\ffxivapp-plugin-informer\ReSharper.DotSettings</s:String>
+	<s:String x:Key="/Default/Environment/InjectedLayers/FileInjectedLayer/=68578BFA99D68C4B9482BA7081590914/RelativePath/@EntryValue">..\ReSharper.DotSettings</s:String>
+	<s:Boolean x:Key="/Default/Environment/InjectedLayers/InjectedLayerCustomization/=File68578BFA99D68C4B9482BA7081590914/@KeyIndexDefined">True</s:Boolean>
+	<s:Double x:Key="/Default/Environment/InjectedLayers/InjectedLayerCustomization/=File68578BFA99D68C4B9482BA7081590914/RelativePriority/@EntryValue">1</s:Double>
+	
+	
+	
+	
+	
 	<s:String x:Key="/Default/Housekeeping/Layout/DialogWindows/OptionsDialog/SelectedPageId/@EntryValue">FileHeaderTextPage</s:String></wpf:ResourceDictionary>
