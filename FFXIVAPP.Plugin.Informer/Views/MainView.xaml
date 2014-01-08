@@ -116,10 +116,11 @@
                                                             Source={StaticResource XIVInfoViewModel}}">
                                 <DataGrid.Columns>
                                     <DataGridTextColumn Binding="{Binding StatusName}"
-                                                        Header="{Binding Locale[informer_NameLabel],
+                                                        Header="{Binding Locale[informer_NameHeader],
                                                                          Source={StaticResource PluginViewModel}}"
                                                         utilities:GridViewSort.PropertyName="StatusName" />
-                                    <DataGridTextColumn Binding="{Binding Duration, StringFormat=\{0:F2\}}"
+                                    <DataGridTextColumn Binding="{Binding Duration,
+                                                                          StringFormat=\{0:F2\}}"
                                                         Header="Duration"
                                                         utilities:GridViewSort.PropertyName="Duration" />
                                 </DataGrid.Columns>
