@@ -146,6 +146,8 @@ namespace FFXIVAPP.Plugin.Informer
 
         public static bool EnableHelpLabels { get; set; }
 
+        public static string Theme { get; set; }
+
         #endregion
     }
 }

@@ -105,7 +105,8 @@
                                 </StackPanel>
                             </Grid>
                         </GroupBox>
-                        <GroupBox Header="Status Entries">
+                        <GroupBox Header="{Binding Locale[informer_StatusEntriesHeader],
+                                                   Source={StaticResource PluginViewModel}}">
                             <DataGrid x:Name="PlayerStatusEntriesDG"
                                       AutoGenerateColumns="False"
                                       BorderBrush="{DynamicResource AccentColorBrush}"
@@ -120,7 +121,8 @@
                                                         utilities:GridViewSort.PropertyName="StatusName" />
                                     <DataGridTextColumn Binding="{Binding Duration,
                                                                           StringFormat=\{0:F2\}}"
-                                                        Header="Duration"
+                                                        Header="{Binding Locale[informer_DurationHeader],
+                                                                         Source={StaticResource PluginViewModel}}"
                                                         utilities:GridViewSort.PropertyName="Duration" />
                                 </DataGrid.Columns>
                             </DataGrid>
@@ -156,7 +158,8 @@
                                                              Source={StaticResource PluginViewModel}}"
                                             utilities:GridViewSort.PropertyName="Enmity" />
                         <DataGridTextColumn Binding="{Binding ID}"
-                                            Header="ID"
+                                            Header="{Binding Locale[informer_IDHeader],
+                                                             Source={StaticResource PluginViewModel}}"
                                             Visibility="Collapsed"
                                             utilities:GridViewSort.PropertyName="ID" />
                     </DataGrid.Columns>
@@ -462,7 +465,8 @@
                                                              Source={StaticResource PluginViewModel}}"
                                             utilities:GridViewSort.PropertyName="Enmity" />
                         <DataGridTextColumn Binding="{Binding ID}"
-                                            Header="ID"
+                                            Header="{Binding Locale[informer_IDHeader],
+                                                             Source={StaticResource PluginViewModel}}"
                                             Visibility="Collapsed"
                                             utilities:GridViewSort.PropertyName="ID" />
                     </DataGrid.Columns>
