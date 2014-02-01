@@ -49,8 +49,8 @@ namespace FFXIVAPP.Plugin.Informer
         {
             get
             {
-                return Path.GetDirectoryName(Assembly.GetExecutingAssembly()
-                                                     .Location);
+                return Path.GetDirectoryName(new Uri(Assembly.GetExecutingAssembly()
+                                                             .CodeBase).LocalPath);
             }
         }
 
